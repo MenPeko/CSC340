@@ -23,6 +23,6 @@ public class Main {
         System.out.println(Data.values().length);
         System.out.println(Data.getTotalDefinition());
 
-        //hello gets >:D
+        //hello world
     }
 }
