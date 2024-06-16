@@ -24,5 +24,7 @@ public class Main {
         System.out.println(Data.getTotalDefinition());
 
         //hello gets >:D
+        //Hello gets 2
+
     }
 }
