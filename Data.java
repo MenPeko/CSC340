@@ -8,7 +8,7 @@ import java.util.List;
 
 public enum Data {
 
-    //who's there
+    //ghost game
     word1("!help ", List.of("PARAMETER HOW-TO, please enter:\n 1. A search key -then 2. An optional part of speech -then\n 3. An optional 'distinct' -then 4. An optional 'reverse )")),
     word2("arrow ", List.of("Arrow [noun] : Here is one arrow: <IMG> -=>> </IMG>")),
     word3("book ", List.of("Book [noun] : A set of pages.", "Book [noun] : A written work published in printed or electronic form.", "Book [verb] : To arrange for someone to have a seat on a plane.", "Book [verb] : To arrange something ojn a particular date.")),
