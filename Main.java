@@ -22,7 +22,5 @@ public class Main {
         System.out.println(printout);
         System.out.println(Data.values().length);
         System.out.println(Data.getTotalDefinition());
-
-        //hello gets >:D
     }
 }
