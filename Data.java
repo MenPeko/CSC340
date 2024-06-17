@@ -3,6 +3,8 @@
 // (powered by FernFlower decompiler)
 //
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public enum Data {
     }
 
     public String getKeywordArray() {
-        return this.keyword;
+        return keyword;
     }
 
     public static int getTotalDefinition() {
@@ -64,9 +66,80 @@ public enum Data {
     public static int getTotalKeyword() {
         Data[] var0 = values();
         int var1 = var0.length;
-        return totalkeyword;
+        return var1;
     }
 
+    //Param 1 = Keyword
+    //Param 2 = PartOfSpeech/Distinct/Reverse
+    //Param 3 = Distinct/Reverse
+    //Param 4 = Reverse
+    public static Data parameterCheck(String search){
+        String[] holdsNull = new String[4];
+        holdsNull = search.split(" ");
+        Data printout = null;
+        List<String> printout2 = null;
+        if(holdsNull.length==1){
+            System.out.println("param check 1");
+            printout = Data.search(holdsNull[0]);
+        }
+        if(holdsNull.length==2){
+            System.out.println("param check 2");
+            printout2 = Data.search(holdsNull[0],holdsNull[1]);
+            printArray(printout2);
+            System.out.println("====-==----------=======");
+        }
+        if(holdsNull.length==3){
+            System.out.println("param check 3");
+            printout2 = Data.search(holdsNull[0],holdsNull[1],holdsNull[2]);
+            printArray(printout2);
+        }
+        if(holdsNull.length==4){
+            System.out.println("param check 4");
+            printout2 = Data.search(holdsNull[0],holdsNull[1],holdsNull[2],holdsNull[3]);
+            printArray(printout2);
+        }
+        return printout;
+    }
+
+    /***
+     * PRINTS ARRAYLIST
+     */
+    public static void printArray(List<String> array){
+        for(String i : array){
+            System.out.println(i);
+        }
+    }
+
+    /***
+     * DISTINCT
+     */
+    public static <E> ArrayList<E> distinct(List<String> par){
+        HashSet<E> hashSet = new HashSet<>();
+        ArrayList<E> arrayList = new ArrayList<>();
+
+        for(String loop: par){
+            if(hashSet.add((E) loop)){
+                arrayList.add((E) loop);
+            }
+        }
+        return arrayList;
+    }
+    /***
+     *  REVERSE
+     */
+    public static List<String> reverse(List<String> array){
+        List<String> rev = new ArrayList<>();
+        for(int i = array.size()-1; i>=0; i--){
+            rev.add(array.get(i));
+        }
+        return rev;
+    }
+
+    /***
+     * FINDS WORD IN ENUM
+     * @param keyword word
+     * @return full list of definition from enum
+     */
     public static Data search(String keyword) {
         Data[] var1 = values();
         int var2 = var1.length;
@@ -83,20 +156,108 @@ public enum Data {
         return null;
     }
 
-    public static Data search(String keyword, String stuff) {
-        System.out.println(search(keyword));
-        System.out.println("two parameters");
+    /***
+     * TYPE OF SPEECH
+     * @param keyword word
+     * @param param2 type of speech
+     * @return This one prints word with type of speech
+     */
+    public static List<String> search(String keyword, String param2) {
+        List<String> typeOfSpeechArray = new ArrayList<>();
+        Data TOS = search(keyword);
+        String keyString = TOS.toString();
+        String rawDataLine[] = keyString.split("\n");
+        for(String ar : rawDataLine){
+            if(ar.toLowerCase().contains(param2.toLowerCase())){
+                typeOfSpeechArray.add(ar);
+            }
+        }
+        return typeOfSpeechArray;
+    }
+
+
+    /***
+     * 3 PARAMETERS
+     */
+    public static List<String> search(String keyword, String param2, String Param3) {
+        List<String> distinct = null;
+        List<String> TOS = search(keyword, param2);
+        String keyString = TOS.toString();
+        String rawDataLine[] = keyString.split("\n");
+        if(Param3.equals("distinct")){
+            distinct = distinct(TOS);
+        }
+        if(Param3.equals("reverse")){
+            distinct = reverse(TOS);
+        }
+        return distinct;
+    }
+
+    /***
+     * HASHSET TO STORE UNIQUE ELEMENTS TO REMOVE DUPLICATES
+     * @param par
+     * @return
+     * @param <E>
+     */
+
+    /***
+     * 4 PARAMETERS
+     * @return
+     */
+
+    public static List<String> search(String keyword, String param2, String param3, String param4) {
+        List<String> reverse = search(keyword, param2, param3);
+        reverse = reverse(reverse);
+        return reverse;
+    }
+
+
+
+    private static Data param2Check(String param2){
+        if(!(param2.contains("adjective")||param2.contains("noun")||param2.contains("verb")||param2.contains("conjunction")||param2.contains("interjection")||param2.contains("preposition")||param2.contains("pronoun")||param2.contains("adverb"))){
+            return search(param2);
+        }
+        if((param2.contains("distinct"))){
+            return search(param2);
+        }
+
+        if((param2.contains("reverse"))){
+            return search(param2);
+        }
+        else{
+            System.out.println("The entered 2nd parameter '" +param2+ "' is NOT a part of speech.");
+            System.out.println("The entered 2nd parameter '" +param2+ "' is NOT 'distinct'.");
+            System.out.println("The entered 2nd parameter '" +param2+ "' is NOT 'reverse'.");
+            System.out.println("The 3rd parameter '"+param2+"' was disregarded");
+        }
+
         return null;
     }
 
-    public static Data search(String keyword, String stuff, String stuff2) {
-        System.out.println("3 parameters");
+    private static String param3Check(String param3){
+        if((param3.contains("distinct"))){
+            return "distinct";
+        }
+        if((param3.contains("reverse"))){
+            return "reverse";
+        }
+        else{
+            System.out.println("The entered 2nd parameter '" +param3+ "' is NOT 'distinct'.");
+            System.out.println("The entered 2nd parameter '" +param3+ "' is NOT 'reverse'.");
+            System.out.println("The 3rd parameter '"+param3+"' was disregarded");
+        }
+
         return null;
     }
 
-
-    public static Data search(String keyword, String stuff, String stuff3, String stuff4) {
-        System.out.println("4 parameters");
+    private static String param4Check(String param4){
+        if((param4.contains("reverse"))){
+            return "reverse";
+        }
+        else{
+            System.out.println("The entered 2nd parameter '" +param4+ "' is NOT 'reverse'.");
+            System.out.println("The 4th parameter '"+param4+"' was disregarded");
+        }
         return null;
     }
 
@@ -112,3 +273,16 @@ public enum Data {
         return word.toString();
     }
 }
+
+
+/*
+        if(!(holdsNull[1].contains("adjective")||holdsNull[1].contains("noun")||holdsNull[1].contains("verb")||holdsNull[1].contains("conjunction")||holdsNull[1].contains("interjection")||holdsNull[1].contains("preposition")||holdsNull[1].contains("pronoun")||holdsNull[1].contains("adverb"))){
+            System.out.println("The entered 2nd parameter '" +holdsNull[1]+ "' is NOT a part of speech.");
+        }
+        if(!(holdsNull[1].contains("distinct"))){
+            System.out.println("The entered 2nd parameter '" +holdsNull[1]+ "' is NOT 'distinct'.");
+        }
+        if(!(holdsNull[1].contains("reverse"))){
+            System.out.println("The entered 2nd parameter '" +holdsNull[1]+ "' is NOT 'reverse'.");
+        }
+ */

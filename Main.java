@@ -17,11 +17,8 @@ public class Main {
         System.out.println("----- Keywords:\t" + Data.getTotalKeyword());
         System.out.println("----- Definitions:\t" + Data.getTotalDefinition());
         System.out.println("Search: ");
-        String search = scan.next().toLowerCase();
-        Data printout = Data.search(search);
-        System.out.println(printout);
-        System.out.println(Data.values().length);
-        System.out.println(Data.getTotalDefinition());
+        String search = scan.nextLine().toLowerCase();// this calls the parameter
+        System.out.println(Data.parameterCheck(search));
         //update test
         //hello world
     }
