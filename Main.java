@@ -18,8 +18,7 @@ public class Main {
         System.out.println("----- Definitions:\t" + Data.getTotalDefinition());
         System.out.println("Search: ");
         String search = scan.nextLine().toLowerCase();// this calls the parameter
-        System.out.println(Data.parameterCheck(search));
-        //update test
-        //hello world
+        Data.parameterCheck(search);
+
     }
 }
