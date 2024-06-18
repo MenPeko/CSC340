@@ -222,7 +222,7 @@ public enum Data {
                 ||a.contains("conjunction")||a.contains("interjection")||a.contains("preposition")){
             return "typeofspeech";
         }
-        return null;
+        return "";
     }
 
 
