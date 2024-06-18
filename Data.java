@@ -108,21 +108,39 @@ public enum Data {
             printArray(printout);
         }
         if(holdsNull.length==2){
-            if(param2Check(holdsNull[1]).equals("false")){
+            if(!(param2Check(holdsNull[1]).equals("typeofspeech")||param2Check(holdsNull[1]).equals("distinct")||param2Check(holdsNull[1]).equals("reverse"))){
+                holdsNull[1]="";
                 System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
             }
+
             printout = Data.search(holdsNull[0],holdsNull[1]);
             printArray(printout);
         }
         if(holdsNull.length==3){
-            if(param2Check(holdsNull[2]).equals("false")){
+            if(!(param2Check(holdsNull[1]).equals("typeofspeech")||param2Check(holdsNull[1]).equals("distinct")||param2Check(holdsNull[1]).equals("reverse"))){
+                holdsNull[1]="";
+                System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+
+            }
+            if(!(param3Check(holdsNull[2]).equals("distinct")||param3Check(holdsNull[2]).equals("reverse"))){
+                holdsNull[2]="";
                 System.out.println("3rd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+
             }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2]);
             printArray(printout);
         }
         if(holdsNull.length==4){
-            if(param2Check(holdsNull[3]).equals("false")){
+            if(!(param2Check(holdsNull[1]).equals("typeofspeech")||param2Check(holdsNull[1]).equals("distinct")||param2Check(holdsNull[1]).equals("reverse"))){
+                holdsNull[1]="";
+                System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
+            if(!(param3Check(holdsNull[2]).equals("distinct")||param3Check(holdsNull[2]).equals("reverse"))){
+                holdsNull[2]="";
+                System.out.println("3rd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
+            if(!(param4Check(holdsNull[3]).equals("reverse"))){
+                holdsNull[3]="";
                 System.out.println("4th parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
             }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2],holdsNull[3]);
@@ -228,6 +246,10 @@ public enum Data {
             da = reverse(search(keyword));
             return da;
         }
+        if(param2.equalsIgnoreCase("")){
+            da = search(keyword);
+            return da;
+        }
 
         return da;
     }
@@ -278,6 +300,9 @@ public enum Data {
         if(param3.equals("reverse")){
             distinct = reverse(TOS);
         }
+        if(param3.equalsIgnoreCase("")){
+            distinct = search(keyword);
+        }
         return distinct;
     }
 
@@ -287,8 +312,14 @@ public enum Data {
      */
 
     public static List<String> search(String keyword, String param2, String param3, String param4) {
-        List<String> reverse = search(keyword, param2, param3);
-        reverse = reverse(reverse);
+        List<String> reverse = new ArrayList<>();
+        if(param4.equalsIgnoreCase("reverse")){
+            reverse = search(keyword, param2, param3);
+            reverse = reverse(reverse);
+        }
+        if(param4.equalsIgnoreCase("")){
+            reverse = search(keyword, param2, param3);
+        }
         return reverse;
     }
 
