@@ -3,10 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public enum Data {
 
@@ -63,6 +60,27 @@ public enum Data {
         return totalDefinition;
     }
 
+    public static String start(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("! Loading data...");
+        System.out.println("! Loading completed");
+        System.out.println("===== DICTIONARY 340 JAVA =====\n");
+        System.out.println("----- Keywords:\t" + Data.getTotalKeyword());
+        System.out.println("----- Definitions:\t" + Data.getTotalDefinition());
+        // this calls the parameter
+
+        String search = "";
+        while(!search.toLowerCase().equals("!q")){
+            if(search.equals("!q")){
+                return "Hello World";
+            }
+            System.out.println("Search: ");
+            search = scan.nextLine().toLowerCase();
+            Data.parameterCheck(search);
+        }
+        return null;
+    }
+
     public static int getTotalKeyword() {
         Data[] var0 = values();
         int var1 = var0.length;
@@ -99,6 +117,13 @@ public enum Data {
             printArray(printout);
         }
         return printout;
+    }
+
+    public static String getWord(String word){
+        if(word.equals("!q")){
+            return "";
+        }
+        return null;
     }
 
     /***
@@ -154,7 +179,7 @@ public enum Data {
         return null;
     }
 
-    public static List<String> search(String keyword) {
+    public static List<String> search(String keyword){
         List<String> Arr = new ArrayList<>();
         Data TOS = searchEngine(keyword);
         String keyString = TOS.toString();         // Could be simplified but chose to leave it for future stuff.
