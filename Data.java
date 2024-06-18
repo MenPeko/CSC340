@@ -115,15 +115,16 @@ public enum Data {
             printArray(printout);
         }
         if(holdsNull.length==3){
-            System.out.println(param2Check(holdsNull[1]) + "param 2 check");
-            System.out.println(param3Check(holdsNull[2]) + " param 3 check");
+            if(param2Check(holdsNull[2]).equals("false")){
+                System.out.println("3rd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2]);
             printArray(printout);
         }
         if(holdsNull.length==4){
-            System.out.println(param2Check(holdsNull[1]) + "param 2 check");
-            System.out.println(param3Check(holdsNull[2]) + " param 3 check");
-            System.out.println(param4Check(holdsNull[3]) + " param 4 check");
+            if(param2Check(holdsNull[3]).equals("false")){
+                System.out.println("4th parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2],holdsNull[3]);
             printArray(printout);
         }
@@ -242,7 +243,7 @@ public enum Data {
         if(a.contains("reverse")){
             return "reverse";
         }
-        return "false1";
+        return "false";
     }
 
     public static String param3Check(String a){
@@ -252,14 +253,14 @@ public enum Data {
         if(a.contains("reverse")){
             return "reverse";
         }
-        return "false2";
+        return "false";
     }
 
     public static String param4Check(String a){
         if(a.contains("reverse")){
             return "reverse";
         }
-        return "The entered 4th parameter '"+a+"' is NOT 'reverse'.\nThe entered 4th parameter '"+a+"' was disregarded.\nThe 4th parameter should be 'reverse'.";
+        return "The entered 4th parameter '"+a+"' is NOT 'reverse'.\nThe entered 4th parameter '"+a+"' was disregarded.\nThe 4th ";
     }
 
 
