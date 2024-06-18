@@ -174,12 +174,16 @@ public enum Data {
             if (searchWord.keyword.trim().equalsIgnoreCase(keyword)) {
                 return searchWord;
             }
+            else{
+                return word1;
+            }
         }
 
         return null;
     }
 
     public static List<String> search(String keyword){
+        System.out.println(keyword);
         List<String> Arr = new ArrayList<>();
         Data TOS = searchEngine(keyword);
         String keyString = TOS.toString();         // Could be simplified but chose to leave it for future stuff.
@@ -208,15 +212,15 @@ public enum Data {
     /***
      * 3 PARAMETERS
      */
-    public static List<String> search(String keyword, String param2, String Param3) {
+    public static List<String> search(String keyword, String param2, String param3) {
         List<String> distinct = null;
         List<String> TOS = search(keyword, param2);
         String keyString = TOS.toString();
         String rawDataLine[] = keyString.split("\n");
-        if(Param3.equals("distinct")){
+        if(param3.equals("distinct")){
             distinct = distinct(TOS);
         }
-        if(Param3.equals("reverse")){
+        if(param3.equals("reverse")){
             distinct = reverse(TOS);
         }
         return distinct;
