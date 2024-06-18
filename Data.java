@@ -122,9 +122,24 @@ public enum Data {
     public static void printArray(List<String> array){
         System.out.println("\t|");
         for(String i : array){
-            System.out.println("\t " + i + " CHECK ");
+            System.out.println("\t " + i);
         }
         System.out.println("\t|");
+    }
+
+    /***
+     *
+     * TYPEOFSPEECHd
+     */
+    public static List<String> typeOfSpeech(String keyword, String param2) {
+        List<String> typeOfSpeechArray = new ArrayList<>();
+        List<String> TOS = search(keyword);
+        for(String ar : TOS){
+            if(ar.toLowerCase().contains(param2.toLowerCase())){
+                typeOfSpeechArray.add(ar);
+            }
+        }
+        return typeOfSpeechArray;
     }
 
     /***
@@ -185,14 +200,29 @@ public enum Data {
      * @return This one prints word with type of speech
      */
     public static List<String> search(String keyword, String param2) {
-        List<String> typeOfSpeechArray = new ArrayList<>();
-        List<String> TOS = search(keyword);
-        for(String ar : TOS){
-            if(ar.toLowerCase().contains(param2.toLowerCase())){
-                typeOfSpeechArray.add(ar);
-            }
+        List<String> da = null;
+        if(typeOS(param2).equalsIgnoreCase("typeofspeech")){
+            da = typeOfSpeech(keyword, param2);
+            return da;
         }
-        return typeOfSpeechArray;
+        if(param2.equalsIgnoreCase("distinct")){
+            da = distinct(search(keyword));
+            return da;
+        }
+        if(param2.equalsIgnoreCase("reverse")){
+            da = reverse(search(keyword));
+            return da;
+        }
+
+        return da;
+    }
+
+    public static String typeOS(String a){
+        if(a.contains("noun")||a.contains("verb")||a.contains("adverb")||a.contains("adjective")||a.contains("pronoun")
+                ||a.contains("conjunction")||a.contains("interjection")||a.contains("preposition")){
+            return "typeofspeech";
+        }
+        return null;
     }
 
 
@@ -212,13 +242,6 @@ public enum Data {
         }
         return distinct;
     }
-
-    /***
-     * HASHSET TO STORE UNIQUE ELEMENTS TO REMOVE DUPLICATES
-     * @param par
-     * @return
-     * @param <E>
-     */
 
     /***
      * 4 PARAMETERS
