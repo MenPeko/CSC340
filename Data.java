@@ -97,6 +97,11 @@ public enum Data {
         String[] holdsNull = new String[4];
         holdsNull = search.split(" ");
         List<String> printout = null;
+        List<String> notfound = new ArrayList<>();
+        notfound.add("<NOT FOUND> To be considered for the next release. Thank you.\n");
+        if(searchEngine(holdsNull[0]) == null){
+            return notfound;
+        }
         if(holdsNull.length==1){
             printout = Data.search(holdsNull[0]);
             printArray(printout);
@@ -182,7 +187,7 @@ public enum Data {
                 return searchWord;
             }
         }
-        return word1;
+        return null;
     }
 
     public static List<String> search(String keyword){
