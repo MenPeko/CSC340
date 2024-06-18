@@ -61,12 +61,13 @@ public enum Data {
     }
 
     public static String start(){
+        int i = 1;
         Scanner scan = new Scanner(System.in);
         System.out.println("! Loading data...");
-        System.out.println("! Loading completed");
-        System.out.println("===== DICTIONARY 340 JAVA =====\n");
+        System.out.println("! Loading completed...\n");
+        System.out.println("===== DICTIONARY 340 JAVA =====");
         System.out.println("----- Keywords:\t" + Data.getTotalKeyword());
-        System.out.println("----- Definitions:\t" + Data.getTotalDefinition());
+        System.out.println("----- Definitions:\t" + Data.getTotalDefinition()+"\n");
         // this calls the parameter
 
         String search = "";
@@ -74,9 +75,10 @@ public enum Data {
             if(search.equals("!q")){
                 return "Hello World";
             }
-            System.out.println("Search: ");
+            System.out.print("Search ["+i+"]: ");
             search = scan.nextLine().toLowerCase();
             Data.parameterCheck(search);
+            i++;
         }
         return null;
     }
@@ -96,43 +98,33 @@ public enum Data {
         holdsNull = search.split(" ");
         List<String> printout = null;
         if(holdsNull.length==1){
-            System.out.println("param check 1");
             printout = Data.search(holdsNull[0]);
             printArray(printout);
         }
         if(holdsNull.length==2){
-            System.out.println("param check 2");
             printout = Data.search(holdsNull[0],holdsNull[1]);
             printArray(printout);
-            System.out.println("====-==----------=======");
         }
         if(holdsNull.length==3){
-            System.out.println("param check 3");
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2]);
             printArray(printout);
         }
         if(holdsNull.length==4){
-            System.out.println("param check 4");
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2],holdsNull[3]);
             printArray(printout);
         }
         return printout;
     }
 
-    public static String getWord(String word){
-        if(word.equals("!q")){
-            return "";
-        }
-        return null;
-    }
-
     /***
      * PRINTS ARRAYLIST
      */
     public static void printArray(List<String> array){
+        System.out.println("\t|");
         for(String i : array){
-            System.out.println(i);
+            System.out.println("\t " + i + " CHECK ");
         }
+        System.out.println("\t|");
     }
 
     /***
@@ -174,16 +166,11 @@ public enum Data {
             if (searchWord.keyword.trim().equalsIgnoreCase(keyword)) {
                 return searchWord;
             }
-            else{
-                return word1;
-            }
         }
-
-        return null;
+        return word1;
     }
 
     public static List<String> search(String keyword){
-        System.out.println(keyword);
         List<String> Arr = new ArrayList<>();
         Data TOS = searchEngine(keyword);
         String keyString = TOS.toString();         // Could be simplified but chose to leave it for future stuff.
