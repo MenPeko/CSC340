@@ -96,24 +96,35 @@ public enum Data {
     public static List<String> parameterCheck(String search){
         String[] holdsNull = new String[4];
         holdsNull = search.split(" ");
-        List<String> printout = null;
+        List<String> printout = new ArrayList<>();
         if(searchEngine(holdsNull[0]) == null){
-            System.out.println("<NOT FOUND> To be considered for the next release. Thank you.\n");
+            printout.add("<NOT FOUND> To be considered for the next release. Thank you.\n");
+            printArray(printout);
             return printout;
         }
+
         if(holdsNull.length==1){
             printout = Data.search(holdsNull[0]);
             printArray(printout);
         }
         if(holdsNull.length==2){
+            if(param2Check(holdsNull[1]).equals("false")){
+                System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
             printout = Data.search(holdsNull[0],holdsNull[1]);
             printArray(printout);
         }
         if(holdsNull.length==3){
+            if(param2Check(holdsNull[2]).equals("false")){
+                System.out.println("3rd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2]);
             printArray(printout);
         }
         if(holdsNull.length==4){
+            if(param2Check(holdsNull[3]).equals("false")){
+                System.out.println("4th parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
+            }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2],holdsNull[3]);
             printArray(printout);
         }
@@ -205,7 +216,7 @@ public enum Data {
      */
     public static List<String> search(String keyword, String param2) {
         List<String> da = null;
-        if(typeOS(param2).equalsIgnoreCase("typeofspeech")){
+        if(param2Check(param2).equalsIgnoreCase("typeofspeech")){
             da = typeOfSpeech(keyword, param2);
             return da;
         }
@@ -221,12 +232,28 @@ public enum Data {
         return da;
     }
 
-    public static String typeOS(String a){
+    public static String param2Check(String a){
         if(a.contains("noun")||a.contains("verb")||a.contains("adverb")||a.contains("adjective")||a.contains("pronoun")
                 ||a.contains("conjunction")||a.contains("interjection")||a.contains("preposition")){
             return "typeofspeech";
         }
-        return "";
+        if(a.contains("distinct")){
+            return "distinct";
+        }
+        if(a.contains("reverse")){
+            return "reverse";
+        }
+        return "false";
+    }
+
+    public static String param3Check(String a){
+        if(a.contains("distinct")){
+            return "distinct";
+        }
+        if(a.contains("reverse")){
+            return "reverse";
+        }
+        return "false";
     }
 
 
@@ -234,7 +261,7 @@ public enum Data {
      * 3 PARAMETERS
      */
     public static List<String> search(String keyword, String param2, String param3) {
-        List<String> distinct = null;
+        List<String> distinct = new ArrayList<>();
         List<String> TOS = search(keyword, param2);
         String keyString = TOS.toString();
         String rawDataLine[] = keyString.split("\n");
