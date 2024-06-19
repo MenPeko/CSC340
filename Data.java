@@ -97,9 +97,18 @@ public enum Data {
         String[] holdsNull = new String[4];
         holdsNull = search.split(" ");
         List<String> printout = new ArrayList<>();
+        if(holdsNull.length>4){
+            printArray(word1.getDefinitionsArray());
+            return word1.getDefinitionsArray();
+        }
+        if(search.isEmpty()){
+            printArray(word1.getDefinitionsArray());
+            return null;
+        }
         if(searchEngine(holdsNull[0]) == null){
             printout.add("<NOT FOUND> To be considered for the next release. Thank you.\n");
             printArray(printout);
+            printArray(word1.getDefinitionsArray());
             return printout;
         }
 
@@ -172,6 +181,11 @@ public enum Data {
                 typeOfSpeechArray.add(ar);
             }
         }
+        if(typeOfSpeechArray.isEmpty()){
+            typeOfSpeechArray.add("<NOT FOUND> To be considered for the next release. Thank you.\n");
+            printArray(typeOfSpeechArray);
+            return word1.getDefinitionsArray();
+        }
         return typeOfSpeechArray;
     }
 
@@ -226,33 +240,7 @@ public enum Data {
         Arr.addAll(List.of(rawDataLine));
         return Arr;
     }
-    /***
-     * TYPE OF SPEECH
-     * @param keyword word
-     * @param param2 type of speech
-     * @return This one prints word with type of speech
-     */
-    public static List<String> search(String keyword, String param2) {
-        List<String> da = null;
-        if(param2Check(param2).equalsIgnoreCase("typeofspeech")){
-            da = typeOfSpeech(keyword, param2);
-            return da;
-        }
-        if(param2.equalsIgnoreCase("distinct")){
-            da = distinct(search(keyword));
-            return da;
-        }
-        if(param2.equalsIgnoreCase("reverse")){
-            da = reverse(search(keyword));
-            return da;
-        }
-        if(param2.equalsIgnoreCase("")){
-            da = search(keyword);
-            return da;
-        }
 
-        return da;
-    }
 
     public static String param2Check(String a){
         if(a.contains("noun")||a.contains("verb")||a.contains("adverb")||a.contains("adjective")||a.contains("pronoun")
@@ -285,6 +273,33 @@ public enum Data {
         return "The entered 4th parameter '"+a+"' is NOT 'reverse'.\nThe entered 4th parameter '"+a+"' was disregarded.\nThe 4th ";
     }
 
+    /***
+     * TYPE OF SPEECH
+     * @param keyword word
+     * @param param2 type of speech
+     * @return This one prints word with type of speech
+     */
+    public static List<String> search(String keyword, String param2) {
+        List<String> da = null;
+        if(param2Check(param2).equalsIgnoreCase("typeofspeech")){
+            da = typeOfSpeech(keyword, param2);
+            return da;
+        }
+        if(param2.equalsIgnoreCase("distinct")){
+            da = distinct(search(keyword));
+            return da;
+        }
+        if(param2.equalsIgnoreCase("reverse")){
+            da = reverse(search(keyword));
+            return da;
+        }
+        if(param2.equalsIgnoreCase("")){
+            da = search(keyword);
+            return da;
+        }
+
+        return da;
+    }
 
     /***
      * 3 PARAMETERS
@@ -301,7 +316,7 @@ public enum Data {
             distinct = reverse(TOS);
         }
         if(param3.equalsIgnoreCase("")){
-            distinct = search(keyword);
+            distinct = search(keyword, param2);
         }
         return distinct;
     }
