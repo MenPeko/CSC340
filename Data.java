@@ -14,7 +14,7 @@ public enum Data {
     word4("distinct ", List.of("Distinct [adjective] : Familiar. Worked in Java", "Distinct [adjective] : Unique. No duplicates. Clearly different or of a different kind.", "Distinct [adverb] : Uniquely. Written \"distinctly\"", "Distinct [noun] : A keyword in this assignment.", "Distinct [noun] : A keyword in this assignment.", "Distinct [noun] : A keyword in this assignment.", "Distinct [noun] : An advanced search option.", "Distinct [noun] : Distinct is a parameter in this assignment.")),
     word5("placeholder ", List.of("Placeholder [adjective] : To be updated...", "Placeholder [adjective] : To be updated...", "Placeholder [adverb] : To be updated...", "Placeholder [conjunction] : To be updated...", "Placeholder [interjection] : To be updated...", "Placeholder [noun] : To be updated...", "Placeholder [noun] : To be updated...", "Placeholder [noun] : To be updated...", "Placeholder [preposition] : To be updated...", "Placeholder [pronoun] : To be updated...", "Placeholder [verb] : To be updated...")),
     word6("reverse ", List.of("Reverse [adjective] : On back side.", "Reverse [adjective] : Opposite to usual or previous arrangement.", "Reverse [noun] : A dictionary program's parameter", "Reverse [noun] : Change to opposite direction", "Reverse [noun] : The opposite.", "Reverse [noun] : To be updated...", "Reverse [noun] : To be updated...", "Reverse [noun] : To be updated...", "Reverse [noun] : To be updated...", "Reverse [verb] : Change something to opposite.", "Reverse [verb] : Go back", "Reverse [verb] : Revoke ruling.", "Reverse [verb] : To be updated...", "Reverse [verb] : To be updated...", "Reverse [verb] : Turn something inside out.")),
-    word7("seven ", List.of("number 7")),
+    word7("water ", List.of("its a liquid")),
     word8("eight ", List.of("number 8")),
     word9("nine ", List.of("number 9")),
     word10("ten ", List.of("number 10")),
@@ -40,10 +40,6 @@ public enum Data {
 
     public List<String> getDefinitionsArray() {
         return this.definition;
-    }
-
-    public String getKeywordArray() {
-        return keyword;
     }
 
     public static int getTotalDefinition() {
@@ -72,15 +68,18 @@ public enum Data {
 
         String search = "";
         while(!search.toLowerCase().equals("!q")){
-            if(search.equals("!q")){
-                return "Hello World";
-            }
             System.out.print("Search ["+i+"]: ");
             search = scan.nextLine().toLowerCase();
+            if(search.equals("!q")){
+                System.out.println("Thank you!");
+                break;
+            }
             Data.parameterCheck(search);
             i++;
         }
+
         return null;
+
     }
 
     public static int getTotalKeyword() {
@@ -118,8 +117,13 @@ public enum Data {
         }
         if(holdsNull.length==2){
             if(!(param2Check(holdsNull[1]).equals("typeofspeech")||param2Check(holdsNull[1]).equals("distinct")||param2Check(holdsNull[1]).equals("reverse"))){
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT a part of speech.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT 'distinct'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT 'reverse'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' was disregarded.>");
+                printout.add("<The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
+                printArray(printout);
                 holdsNull[1]="";
-                System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
             }
 
             printout = Data.search(holdsNull[0],holdsNull[1]);
@@ -127,30 +131,52 @@ public enum Data {
         }
         if(holdsNull.length==3){
             if(!(param2Check(holdsNull[1]).equals("typeofspeech")||param2Check(holdsNull[1]).equals("distinct")||param2Check(holdsNull[1]).equals("reverse"))){
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT a part of speech.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT 'distinct'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT 'reverse'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' was disregarded.>");
+                printout.add("<The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
+                printArray(printout);
                 holdsNull[1]="";
-                System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
-
             }
             if(!(param3Check(holdsNull[2]).equals("distinct")||param3Check(holdsNull[2]).equals("reverse"))){
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' is NOT 'distinct'.>");
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' is NOT 'reverse'.>");
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' was disregarded.>");
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' was disregarded.>");
+                printout.add("<The 3rd parameter should be 'distinct' or 'reverse'.>");
+                printArray(printout);
                 holdsNull[2]="";
-                System.out.println("3rd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
-
             }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2]);
             printArray(printout);
         }
         if(holdsNull.length==4){
             if(!(param2Check(holdsNull[1]).equals("typeofspeech")||param2Check(holdsNull[1]).equals("distinct")||param2Check(holdsNull[1]).equals("reverse"))){
+                System.out.println("\n\n\n\n<The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT a part of speech.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT 'distinct'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' is NOT 'reverse'.>");
+                printout.add("<The entered 2nd parameter '"+holdsNull[1]+"' was disregarded.>");
+                printout.add("<The 2nd parameter should be a part of speech or 'distinct' or 'reverse'.>");
+                printArray(printout);
                 holdsNull[1]="";
-                System.out.println("2nd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
             }
             if(!(param3Check(holdsNull[2]).equals("distinct")||param3Check(holdsNull[2]).equals("reverse"))){
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' is NOT 'distinct'.>");
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' is NOT 'reverse'.>");
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' was disregarded.>");
+                printout.add("<The entered 3rd parameter '"+holdsNull[2]+"' was disregarded.>");
+                printout.add("<The 3rd parameter should be 'distinct' or 'reverse'.>");
+                printArray(printout);
                 holdsNull[2]="";
-                System.out.println("3rd parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
             }
             if(!(param4Check(holdsNull[3]).equals("reverse"))){
+                printout.add("<The entered 4th parameter '"+holdsNull[3]+"' is NOT 'reverse'.>");
+                printout.add("<The entered 4th parameter '"+holdsNull[3]+"' was disregarded.>");
+                printout.add("<The 4th parameter should be 'reverse'.>");
+                printArray(printout);
                 holdsNull[3]="";
-                System.out.println("4th parameter:" + holdsNull[1] + "is not distinct/reverse/TOS");
             }
             printout = Data.search(holdsNull[0],holdsNull[1],holdsNull[2],holdsNull[3]);
             printArray(printout);
@@ -270,7 +296,7 @@ public enum Data {
         if(a.contains("reverse")){
             return "reverse";
         }
-        return "The entered 4th parameter '"+a+"' is NOT 'reverse'.\nThe entered 4th parameter '"+a+"' was disregarded.\nThe 4th ";
+        return "false";
     }
 
     /***
